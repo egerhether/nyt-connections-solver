@@ -1,5 +1,6 @@
 import json
 import random
+import re
 
 class Puzzle:
 
@@ -27,6 +28,7 @@ class Puzzle:
 
         random.shuffle(words)
 
+        new_words = [re.sub(r"\s+", "", word, flags=re.UNICODE) for word in words]
         return words, puzzle_id
 
     def check_solution(self, words: list, id: int):
@@ -41,7 +43,8 @@ class Puzzle:
         puzzle = self.puzzles[id]['answers']
         is_solution = False
         num_correct = 0
-
+        
+        # keeps track of groups already checked
         indices = [0, 1, 2, 3]
 
         for level in puzzle:
