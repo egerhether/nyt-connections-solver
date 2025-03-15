@@ -19,17 +19,7 @@ class Puzzle:
 
         puzzle_id = random.randint(1, 638)
 
-        puzzle = self.puzzles[puzzle_id]['answers']
-
-        words = []
-        for level in puzzle:
-            group = level['members']
-            words.extend(group)
-
-        random.shuffle(words)
-
-        new_words = [re.sub(r"\s+", "", word, flags=re.UNICODE) for word in words]
-        return words, puzzle_id
+        return self.get_puzzle_by_id(puzzle_id)
 
     def check_solution(self, words: list, id: int):
         '''
@@ -63,3 +53,24 @@ class Puzzle:
         is_solution = (num_correct == 16)
               
         return is_solution, num_correct
+    
+    def get_puzzle_by_id(self, puzzle_id: int):
+        '''
+        Args:
+            puzzle_id (int): id of the puzzle to return
+        Returns:
+            new_words (list): words of the puzzle in random order
+            puzzle_id (int): id of the puzzle returned 
+        '''
+
+        puzzle = self.puzzles[puzzle_id]['answers']
+
+        words = []
+        for level in puzzle:
+            group = level['members']
+            words.extend(group)
+
+        random.shuffle(words)
+
+        new_words = [re.sub(r"\s+", "", word, flags=re.UNICODE) for word in words]
+        return new_words, puzzle_id
