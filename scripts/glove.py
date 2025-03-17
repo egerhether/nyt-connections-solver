@@ -1,8 +1,6 @@
 import numpy as np
 from tqdm import tqdm
 
-# TODO: improve generation of embeddings for complex phrases
-# sum the composite embeddings ???
 class GloVe:
 
     def __init__(self, filepath: str):
