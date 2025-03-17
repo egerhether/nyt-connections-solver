@@ -15,7 +15,7 @@ class MethodTester:
         
         results = {"is_sol": [], "num_corr": []}
 
-        for id in tqdm(range(638)):
+        for id in tqdm(range(self.puzzle.max_id + 1)):
             try: 
                 random_words, id = self.puzzle.get_puzzle_by_id(id)
                 solver.solve_puzzle(random_words)

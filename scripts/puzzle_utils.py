@@ -10,6 +10,8 @@ class Puzzle:
             self.puzzles = json.load(file)
             file.close()
 
+        self.max_id = len(self.puzzles) - 1
+
     def get_random_puzzle(self):
         '''
         Returns:
@@ -17,7 +19,7 @@ class Puzzle:
           id (int): id of the puzzle chosen, for checking purposes later
         '''
 
-        puzzle_id = random.randint(1, 638)
+        puzzle_id = random.randint(1, self.max_id)
 
         return self.get_puzzle_by_id(puzzle_id)
 
@@ -63,6 +65,7 @@ class Puzzle:
             puzzle_id (int): id of the puzzle returned 
         '''
 
+        assert puzzle_id <= self.max_id
         puzzle = self.puzzles[puzzle_id]['answers']
 
         words = []
