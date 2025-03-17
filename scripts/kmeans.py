@@ -13,7 +13,7 @@ class KMeansSolver(Solver):
         self.kmeans = KMeans(n_clusters = 4)
         self.glove = glove
 
-    def solve_puzzle(self, words):
+    def solve_puzzle(self, words: list):
         '''
         Solves the puzzle using fixed size k-means algorithm.
         Args:

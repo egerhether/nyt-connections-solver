@@ -5,7 +5,7 @@ class Solver:
     def __init__(self):
         pass
     
-    def solve_puzzle(self, words):
+    def solve_puzzle(self, words: list):
         '''
         Default implementation of solving the puzzle. Creates a list of indices
         of clusters each word is assigned to.
@@ -15,7 +15,7 @@ class Solver:
         self.clusters = [i % 4 for i in range(16)]
         random.shuffle(self.clusters)
 
-    def build_solution(self, words):
+    def build_solution(self, words: list):
         '''
         Default implementation of building the solution for the puzzle. Uses the 
         clusters attribute to create a list of sets of 4 words.

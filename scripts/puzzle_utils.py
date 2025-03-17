@@ -74,3 +74,19 @@ class Puzzle:
 
         new_words = [re.sub(r"\s+", "", word, flags=re.UNICODE) for word in words]
         return new_words, puzzle_id
+
+    def check_if_group(self, puzzle_id: int, group: list):
+        '''
+        Args:
+            puzzle_id (int): id of the puzzle to check
+            group (list): list of words to check if they are part of the solution
+        Returns:
+            is_sol (bool): boolean checking if group matches one of the solution groups 
+        '''
+
+        puzzle = self.puzzles[puzzle_id]['answers']
+        for level in puzzle:
+            if group == level['members']:
+                return True
+
+        return False
