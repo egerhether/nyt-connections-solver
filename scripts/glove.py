@@ -33,7 +33,19 @@ class GloVe:
         Returns:
             embeddings (np.ndarray): numpy array of all the embeddings
         '''
-        embeddings = [self.vocab[word.lower()] for word in words]
+        embeddings = []
+        for word in words:
+            try:
+                embeddings.append(self.get_embedding(word.lower()))
+            except:
+                tokens = word.split()
+                if len(tokens) > 1:
+                    emb = np.zeros_like(self.get_embedding(tokens[0].lower()))
+                    for token in tokens:
+                        emb += self.get_embedding(token.lower())
+                    embeddings.append(emb)
+                else:
+                    pass
         embeddings = np.asarray(embeddings)
 
         return embeddings
