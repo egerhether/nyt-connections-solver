@@ -2,4 +2,3 @@ embeddings/
 NYT-Connections-Answers/
 scripts/__pycache__/
 scripts/neural/__pycache__/
-data/

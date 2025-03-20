@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import random
 import torch
+import ast
 from torch.utils.data import Dataset
 from tqdm import tqdm
 
@@ -16,10 +17,10 @@ class ConnectionsDataset(Dataset):
         self.glove = glove
         self.puzzle = puzzle
 
-        if not os.path.isfile("data/connections_traning.csv"):
+        if not os.path.isfile("data/connections_training.npz"):
             self.build_dataset()
         
-        self.data = pd.read_csv("data/connections_training.csv")
+        self.data = np.load("data/connections_training.npz", allow_pickle = True)
     
     def build_dataset(self):
         '''
@@ -48,20 +49,23 @@ class ConnectionsDataset(Dataset):
             x_right = self.glove.embed_puzzle_words(correct_group).flatten()
             x_wrong = self.glove.embed_puzzle_words(incorrect_group).flatten()
 
+            if x_right.size < 1200 or x_wrong.size < 1200:
+                continue
+
             dataset.loc[2 * id] = [x_right, 1]
             dataset.loc[2 * id + 1] = [x_wrong, 0]
 
-        dataset.to_csv("data/connections_training.csv")
+        np.savez("data/connections_training.npz", x = np.array(dataset["x"].tolist()), y = dataset["y"].values, allow_pickle = True)
 
-        def __len__(self):
-            return len(self.data)
 
-        def __getitem__(self, idx):
-            if torch.is_tensor(idx):
-                idx = idx.tolist()
+    def __len__(self):
+        return len(self.data)
 
-             
-            output = {"x": torch.as_tensor(self.data.iloc[idx, 0]), 
-                      "y": torch.as_tensor(self.data.iloc[idx, 1])}
+    def __getitem__(self, idx):
+        if torch.is_tensor(idx):
+            idx = idx.tolist()
+
+        x = torch.from_numpy(self.data["x"][idx])
+        y = torch.as_tensor(self.data["y"][idx])
             
-            return output
+        return x, y
