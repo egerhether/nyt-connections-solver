@@ -1,0 +1,11 @@
+{
+  "include": ["src"],
+  "venvPath": "/home/hether/miniconda3/envs/",
+  "venv": "connections",
+  "executionEnvironments": [
+    {
+      "root": "src",
+      "extraPaths": ["src", "libs"]
+    }
+  ]
+}

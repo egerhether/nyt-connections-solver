@@ -1,6 +1,5 @@
 from scripts.glove import GloVe
 
-
 class Predictor:
 
     def __init__(self, glove: GloVe):

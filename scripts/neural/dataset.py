@@ -67,5 +67,5 @@ class ConnectionsDataset(Dataset):
 
         x = torch.from_numpy(self.data["x"][idx])
         y = torch.as_tensor(self.data["y"][idx])
-            
+           
         return x, y
